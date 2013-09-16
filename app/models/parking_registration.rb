@@ -10,4 +10,9 @@ class ParkingRegistration < ActiveRecord::Base
     only_integer: true,
     greater_than_or_equal_to: 1,
     less_than_or_equal_to: 60
+
+  def park
+    self.parked_on = Date.today
+    save
+  end
 end
