@@ -38,6 +38,9 @@ group :development, :test do
   gem 'valid_attribute'
   gem 'shoulda'
   gem 'capybara'
+
+  gem 'pry-rails'
+  gem 'launchy'
 end
 
 # Use ActiveModel has_secure_password
