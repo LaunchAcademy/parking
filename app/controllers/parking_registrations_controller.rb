@@ -4,7 +4,7 @@ class ParkingRegistrationsController < ApplicationController
   end
 
   def create
-    @parking_registration = ParkingRegistration.new(reg_params)
+    @parking_registration = ParkingRegistration.new(params[:parking_registration])
     if @parking_registration.park
       flash[:notice] = 'You registered successfully'
       redirect_to '/'

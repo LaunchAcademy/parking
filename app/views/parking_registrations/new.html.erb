@@ -1,3 +1,11 @@
+<%- if @parking_registration.errors.size > 0 -%>
+  <ul class="errors">
+    <%- @parking_registration.errors.full_messages.each do |message| -%>
+      <li><%= message %></li>
+    <%- end -%>
+  </ul>
+<%- end -%>
+
 <%= form_for @parking_registration do |f| %>
   <div>
     <%= f.label :first_name %>
