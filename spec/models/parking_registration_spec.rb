@@ -69,6 +69,17 @@ describe ParkingRegistration do
     )
   end
 
+  it do
+    should have_valid(:location).when('Summer Street', 'Winter Street')
+  end
+
+  it do
+    should_not have_valid(:location).when(
+      nil,
+      ''
+    )
+  end
+
   describe 'parking' do
     it 'parks the car for today' do
       registration = FactoryGirl.build(:parking_registration, parked_on: nil)

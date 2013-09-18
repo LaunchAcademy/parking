@@ -4,6 +4,7 @@ FactoryGirl.define do
     last_name 'Smith'
     email 'user@example.com'
     spot_number 5
+    location 'Winter Street'
     parked_on { Date.today }
   end
 end

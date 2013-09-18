@@ -16,6 +16,16 @@ class ParkingRegistration < ActiveRecord::Base
 
   validate :already_occupied_spot
 
+  def self.locations
+    [
+      'Winter Street',
+      'Fall Street',
+      'Summer Street'
+    ]
+  end
+
+  validates_inclusion_of :location, in: ParkingRegistration.locations
+
   def park
     self.parked_on = Date.today
     save

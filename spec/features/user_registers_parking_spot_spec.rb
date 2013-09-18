@@ -25,6 +25,7 @@ feature "user registers spot", %Q{
     fill_in 'Last name', with: 'Smith'
     fill_in 'Email', with: 'user@example.com'
     fill_in 'Spot number', with: 5
+    select 'Winter Street', from: 'Location'
     click_button 'Register'
     expect(page).to have_content('You registered successfully')
     expect(ParkingRegistration.count).to eql(prev_count + 1)
