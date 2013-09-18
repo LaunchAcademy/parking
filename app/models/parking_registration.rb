@@ -21,6 +21,19 @@ class ParkingRegistration < ActiveRecord::Base
     save
   end
 
+  def neighbors
+    [
+      ParkingRegistration.where({
+        spot_number: self.spot_number - 1,
+        parked_on: self.parked_on
+      }).first,
+      ParkingRegistration.where({
+        spot_number: self.spot_number + 1,
+        parked_on: self.parked_on
+      }).first
+    ]
+  end
+
   protected
   def already_occupied_spot
     if self.spot_number.present? && self.parked_on.present?

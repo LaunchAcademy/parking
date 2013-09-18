@@ -4,13 +4,17 @@ class ParkingRegistrationsController < ApplicationController
   end
 
   def create
-    @parking_registration = ParkingRegistration.new(params[:parking_registration])
+    @parking_registration = ParkingRegistration.new(reg_params)
     if @parking_registration.park
       flash[:notice] = 'You registered successfully'
-      redirect_to '/'
+      redirect_to "/parking_registrations/#{@parking_registration.id}"
     else
       render :new
     end
+  end
+
+  def show
+    @parking_registration = ParkingRegistration.find(params[:id])
   end
 
   protected
