@@ -21,17 +21,30 @@ class ParkingRegistration < ActiveRecord::Base
     save
   end
 
+  def has_neighbors?
+    neighbors != [nil, nil]
+  end
+
   def neighbors
-    [
-      ParkingRegistration.where({
-        spot_number: self.spot_number - 1,
+    neighbors = ParkingRegistration.where(
+      "(spot_number = :below OR spot_number = :above)
+      AND parked_on = :parked_on", {
+        below: self.spot_number - 1,
+        above: self.spot_number + 1,
         parked_on: self.parked_on
-      }).first,
-      ParkingRegistration.where({
-        spot_number: self.spot_number + 1,
-        parked_on: self.parked_on
-      }).first
-    ]
+    }).order("spot_number").all
+
+    if neighbors.size == 2
+      neighbors
+    elsif neighbors.size == 0
+      [nil, nil]
+    else
+      if neighbors[0].spot_number > self.spot_number
+        [nil, neighbors[0]]
+      else
+        [neighbors[0], nil]
+      end
+    end
   end
 
   protected

@@ -1,0 +1,22 @@
+<h1>Parking Registration</h1>
+
+<%- if @parking_registration.has_neighbors? -%>
+  <%- @parking_registration.neighbors.each do |neighbor| -%>
+    <%- if neighbor.present? -%>
+      <p><%= neighbor.first_name %></p>
+    <%- end -%>
+  <%- end -%>
+<%- else -%>
+  <p>You have no neighbors</p>
+<%- end -%>
+
+<dl>
+  <dt>Name</dt>
+  <dd><%= @parking_registration.first_name %> <%= @parking_registration.last_name %></dd>
+
+  <dt>Email</dt>
+  <dd><%= @parking_registration.email %></dd>
+
+  <dt>Spot Number</dt>
+  <dd><%= @parking_registration.spot_number %></dd>
+</dl>
