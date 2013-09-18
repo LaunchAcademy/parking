@@ -27,5 +27,10 @@
     <%= f.number_field :spot_number %>
   </div>
 
+  <div>
+    <%= f.label :location %>
+    <%= f.select :location, options_for_select([['']] + ParkingRegistration.locations, include_blank: true) %>
+  </div>
+
   <%= f.submit 'Register' %>
 <%- end -%>
