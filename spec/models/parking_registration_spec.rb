@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe ParkingRegistration do
+  it { should belong_to :location }
   it do
     should have_valid(:email).when(
       'user@example.com',
@@ -70,13 +71,12 @@ describe ParkingRegistration do
   end
 
   it do
-    should have_valid(:location).when('Summer Street', 'Winter Street')
+    should have_valid(:location).when(Location.new)
   end
 
   it do
     should_not have_valid(:location).when(
-      nil,
-      ''
+      nil
     )
   end
 

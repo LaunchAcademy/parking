@@ -4,7 +4,11 @@ FactoryGirl.define do
     last_name 'Smith'
     email 'user@example.com'
     spot_number 5
-    location 'Winter Street'
+    association :location
     parked_on { Date.today }
+  end
+
+  factory :location do
+    sequence(:name) {|n| "Location #{n}" }
   end
 end

@@ -28,8 +28,12 @@
   </div>
 
   <div>
-    <%= f.label :location %>
-    <%= f.select :location, options_for_select([['']] + ParkingRegistration.locations, include_blank: true) %>
+    <%= f.label :location_id %>
+    <%= f.collection_select :location_id,
+      Location.all,
+      :id,
+      :name,
+      prompt: true %>
   </div>
 
   <%= f.submit 'Register' %>

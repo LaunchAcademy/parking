@@ -1,4 +1,6 @@
 class ParkingRegistration < ActiveRecord::Base
+  belongs_to :location
+
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :parked_on
@@ -16,15 +18,7 @@ class ParkingRegistration < ActiveRecord::Base
 
   validate :already_occupied_spot
 
-  def self.locations
-    [
-      'Winter Street',
-      'Fall Street',
-      'Summer Street'
-    ]
-  end
-
-  validates_inclusion_of :location, in: ParkingRegistration.locations
+  validates_presence_of :location
 
   def park
     self.parked_on = Date.today
@@ -34,10 +28,18 @@ class ParkingRegistration < ActiveRecord::Base
   protected
   def already_occupied_spot
     if self.spot_number.present? && self.parked_on.present?
-      other_registration_count = self.class.where({
-        parked_on: self.parked_on,
-        spot_number: self.spot_number
-      }).count
+      other_registration_count = 0
+      if self.persisted?
+        other_registration_count = self.class.where({
+          parked_on: self.parked_on,
+          spot_number: self.spot_number
+        }).where(["id <> ?", self.id]).count
+      else
+        other_registration_count = self.class.where({
+          parked_on: self.parked_on,
+          spot_number: self.spot_number
+        }).count
+      end
 
       if other_registration_count > 0
         self.errors.add(:spot_number, 'is already taken')
