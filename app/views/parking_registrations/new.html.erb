@@ -1,3 +1,9 @@
+<%- if params[:q] -%>
+  <p>You specified <%= params[:q] %></p>
+<%- end -%>
+<%- if @last_registration -%>
+  <p>You've already previously registered in spot number <%= @last_registration.spot_number %></p>
+<%- end -%>
 <%- if @parking_registration.errors.size > 0 -%>
   <ul class="errors">
     <%- @parking_registration.errors.full_messages.each do |message| -%>
