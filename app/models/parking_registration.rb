@@ -21,6 +21,19 @@ class ParkingRegistration < ActiveRecord::Base
     save
   end
 
+  class << self
+    def for_yesterday(ids)
+      if ids.present?
+        ParkingRegistration.where({
+          id: ids,
+          parked_on: Date.yesterday
+        })
+      else
+        []
+      end
+    end
+  end
+
   protected
   def already_occupied_spot
     if self.spot_number.present? && self.parked_on.present?
