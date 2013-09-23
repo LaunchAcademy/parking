@@ -88,4 +88,14 @@ describe ParkingRegistration do
 
     end
   end
+
+  describe 'from yesterday' do
+    it 'includes an item if the primary key is in the collection and was parked yesterday' do
+      reg = FactoryGirl.create(:parking_registration, parked_on: Date.yesterday)
+
+      expect(ParkingRegistration.for_yesterday([reg.id])).to include(reg)
+    end
+
+    it 'does not include an item if it was not parked yesterday'
+  end
 end
