@@ -1,3 +1,9 @@
+<%- if yesterdays_registration.present? -%>
+  <p>Yesterday, you parked in spot <%= yesterdays_registration.spot_number %></p>
+<%- else -%>
+  <p>You did not park yesterday</p>
+<%- end -%>
+
 <%- if @parking_registration.errors.size > 0 -%>
   <ul class="errors">
     <%- @parking_registration.errors.full_messages.each do |message| -%>
@@ -5,6 +11,7 @@
     <%- end -%>
   </ul>
 <%- end -%>
+
 
 <%= form_for @parking_registration do |f| %>
   <div>
