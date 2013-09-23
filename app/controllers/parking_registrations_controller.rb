@@ -30,6 +30,6 @@ class ParkingRegistrationsController < ApplicationController
   end
 
   def yesterdays_registration
-    ParkingRegistration.for_yesterday(session[:registration_ids])
+    ParkingRegistration.for_yesterday(session[:registration_ids]).first
   end
 end

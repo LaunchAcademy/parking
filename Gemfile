@@ -41,7 +41,10 @@ group :development, :test do
 
   gem 'pry-rails'
   gem 'launchy'
+
+  gem 'timecop'
 end
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

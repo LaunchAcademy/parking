@@ -12,17 +12,18 @@ feature 'remember spot', %Q{
   #   yesterday when checking in.
 
   scenario 'parked yesterday' do
-    visit new_parking_registration_path
-    fill_in 'First name', with: 'John'
-    fill_in 'Last name', with: 'Smith'
-    fill_in 'Email', with: 'user@example.com'
-    fill_in 'Spot number', with: 5
-    click_button 'Register'
-    expect(page).to have_content('You registered successfully')
+    Timecop.travel(1.day.ago) do
+      visit new_parking_registration_path
+      fill_in 'First name', with: 'John'
+      fill_in 'Last name', with: 'Smith'
+      fill_in 'Email', with: 'user@example.com'
+      fill_in 'Spot number', with: 5
+      click_button 'Register'
+      expect(page).to have_content('You registered successfully')
+    end
 
+    Timecop.return
     reg = ParkingRegistration.last
-    reg.parked_on = Date.yesterday
-    reg.save!
 
     visit new_parking_registration_path
     expect(page).to have_content("Yesterday, you parked in spot #{reg.spot_number}")
