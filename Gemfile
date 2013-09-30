@@ -41,6 +41,8 @@ group :development, :test do
 
   gem 'pry-rails'
   gem 'launchy'
+
+  gem 'mailcatcher'
 end
 
 group :test do
