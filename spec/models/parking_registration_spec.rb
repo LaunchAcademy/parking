@@ -77,6 +77,12 @@ describe ParkingRegistration do
 
     end
 
+    it 'sends an email when parking is successful' do
+      prev_mail_count = ActionMailer::Base.deliveries.count
+      FactoryGirl.build(:parking_registration).park
+      expect(ActionMailer::Base.deliveries.count).to eql(prev_mail_count + 1)
+    end
+
     it 'only allows one registration in one spot per day' do
       prev_registration = FactoryGirl.create(:parking_registration)
       registration = FactoryGirl.build(:parking_registration,

@@ -18,7 +18,10 @@ class ParkingRegistration < ActiveRecord::Base
 
   def park
     self.parked_on = Date.today
-    save
+    if save
+      ParkingConfirmation.receipt(self).deliver
+      return true
+    end
   end
 
   protected

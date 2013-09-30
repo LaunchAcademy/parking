@@ -19,6 +19,9 @@ feature "user registers spot", %Q{
   # So that two cars are not parked in the same spot
 
   scenario 'specifies valid information, registers spot' do
+    #clear out mail deliveries
+    ActionMailer::Base.deliveries = []
+
     prev_count = ParkingRegistration.count
     visit '/'
     fill_in 'First name', with: 'John'
@@ -28,6 +31,13 @@ feature "user registers spot", %Q{
     click_button 'Register'
     expect(page).to have_content('You registered successfully')
     expect(ParkingRegistration.count).to eql(prev_count + 1)
+
+    #expect email details pertaining to the confirmation
+    expect(ActionMailer::Base.deliveries.size).to eql(1)
+    last_email = ActionMailer::Base.deliveries.last
+    expect(last_email).to have_subject('Parking Confirmation')
+    expect(last_email).to deliver_to('user@example.com')
+    expect(last_email).to have_body_text(/spot number 5/)
   end
 
   scenario 'attempts to register spot that is taken' do
