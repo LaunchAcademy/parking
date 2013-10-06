@@ -16,6 +16,8 @@ class ParkingRegistration < ActiveRecord::Base
 
   validate :already_occupied_spot
 
+  mount_uploader :car_photo, CarPhotoUploader
+
   def park
     self.parked_on = Date.today
     save

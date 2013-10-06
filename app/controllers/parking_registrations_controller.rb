@@ -19,6 +19,7 @@ class ParkingRegistrationsController < ApplicationController
       :first_name,
       :last_name,
       :email,
-      :spot_number)
+      :spot_number,
+      :car_photo)
   end
 end

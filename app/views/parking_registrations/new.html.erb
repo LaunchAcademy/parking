@@ -27,5 +27,10 @@
     <%= f.number_field :spot_number %>
   </div>
 
+  <div>
+    <%= f.label :car_photo, "Car Photo" %>
+    <%= f.file_field :car_photo %>
+  </div>
+
   <%= f.submit 'Register' %>
 <%- end -%>
