@@ -82,7 +82,7 @@ describe ParkingRegistration do
       registration = FactoryGirl.build(:parking_registration,
         spot_number: prev_registration.spot_number,
         parked_on: prev_registration.parked_on)
-      expect(registration.park).to be_false
+      expect(registration.park).to be(false)
       expect(registration).to_not be_valid
       expect(registration.errors[:spot_number]).to_not be_blank
 
