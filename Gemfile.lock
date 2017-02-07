@@ -191,7 +191,7 @@ DEPENDENCIES
   launchy
   pg
   pry-rails
-  rails (= 4.2.7)
+  rails (~> 4.2)
   rspec-rails
   sass-rails
   sdoc
